@@ -1,9 +1,11 @@
-import { DefaultLayout } from '~/layouts';
+import { DefaultLayout, HeaderOnly } from '~/layouts';
 
 import config from '~/config';
 
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
+import Detail from '~/pages/Detal';
+
 export const publicRoutes = [
     {
         path: config.routes.home,
@@ -13,7 +15,12 @@ export const publicRoutes = [
     {
         path: config.routes.login,
         component: Login,
-        layout: DefaultLayout,
+        layout: HeaderOnly,
+    },
+    {
+        path: config.routes.detail,
+        component: Detail,
+        layout: HeaderOnly,
     }
 ];
 
