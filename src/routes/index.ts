@@ -15,13 +15,13 @@ export const publicRoutes = [
     {
         path: config.routes.login,
         component: Login,
-        layout: HeaderOnly,
+        layout: null,
     },
     {
         path: config.routes.detail,
         component: Detail,
         layout: HeaderOnly,
-    }
+    },
 ];
 
 export const privateRoutes = [];

@@ -1,45 +1,132 @@
-import React, { useState } from 'react'
-import { TextField, Button, Container, Grid, Box } from '@mui/material'
-import {styled} from '@mui/system'
-import classNames from 'classnames/bind'
-import styles from './Login.module.scss';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {
+    Box,
+    TextField,
+    Typography,
+    Button,
+    FormHelperText,
+    FormControl,
+} from '@mui/material';
+import { styled } from '@mui/system';
+
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+import { useDispatch } from 'react-redux';
 
 const Wrapper = styled(Box)({
-    backgroundColor: 'red',
-})
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh',
+    background: 'linear-gradient(-135deg,#c850c0,#4158d0)',
+});
 
-const cx = classNames.bind(styles)
+const Card = styled(Box)({
+    width: 660,
+    borderRadius: 50,
+    background: 'rgba(255,255,255, 0.6)',
+});
 
-export default function Login() {
+const CardHeader = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
+    background: 'rgba(255,255,255, 0.2)',
+    borderRadius: '50px 50px 0 0 ',
+});
 
-    const [username, setUsername] = useState<string | number>();
-    const [password, setPassword] = useState<string | number>();
+const HeaderText = styled(Typography)({
+    fontSize: '2rem',
+    fontWeight: 700,
+});
 
-    const checkAccount = false;
+const CardBody = styled('form')({
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '40px 80px 80px 80px',
+    borderRadius: '50px 50px 0 0 ',
+});
+
+const Item = styled(Box)({
+    width: '100%',
+    padding: '10px 0',
+});
+
+type LoginDetail = {
+    username: string;
+    password: string;
+};
+
+function Login() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginDetail>();
+
+    const onSubmit: SubmitHandler<LoginDetail> = (data) => console.log(data);
 
     return (
-        <div >
-            <TextField label="Outlined" variant="outlined" />
-            <div className={cx("btn")}>
-                <Button variant="contained" color='error'>Contained</Button>
-            </div>
-
-            <Container maxWidth="md">
-                <Grid container >
-                    <Grid item sm={3}>
-                        <Wrapper>
-                                demo style
-                                {
-                                  checkAccount ? <Link to="/">hello acc</Link> : <Link to="/">Dang nhap</Link>
-                                }
-                        </Wrapper>
-                    </Grid>
-                    <Grid item sm={9} color="primary" >Right</Grid>
-                </Grid>
-                 </Container>
-        
-            
-        </div>
-    )
+        <Wrapper>
+            <Card>
+                <CardHeader>
+                    <HeaderText>Login</HeaderText>
+                </CardHeader>
+                <CardBody onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl error fullWidth>
+                        <Item>
+                            {' '}
+                            <TextField
+                                fullWidth
+                                margin="dense"
+                                variant="standard"
+                                aria-describedby="component-error-text"
+                                label="Username"
+                                error={Boolean(errors?.username)}
+                                {...register('username', {
+                                    required: true,
+                                    maxLength: 10,
+                                })}
+                            />
+                            <FormHelperText id="component-error-text">
+                                {errors.username?.type === 'required' &&
+                                    'Username is required!'}
+                                {errors.username?.type === 'maxLength' &&
+                                    'Username must be less than 10 character!'}
+                            </FormHelperText>
+                        </Item>
+                        <Item>
+                            <TextField
+                                fullWidth
+                                type="password"
+                                margin="dense"
+                                variant="standard"
+                                label="Password"
+                                error={Boolean(errors.password)}
+                                {...register('password', {
+                                    required: true,
+                                    pattern:
+                                        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,40}$/i,
+                                })}
+                            />
+                            <FormHelperText id="component-error-text">
+                                {errors.password?.type === 'required' &&
+                                    'Password is required!'}
+                                {errors.password?.type === 'pattern' &&
+                                    'Password must be 8 to 40 character!'}
+                            </FormHelperText>
+                        </Item>
+                        <Item>
+                            <Button fullWidth type="submit" variant="contained">
+                                Login
+                            </Button>
+                        </Item>
+                    </FormControl>
+                </CardBody>
+            </Card>
+        </Wrapper>
+    );
 }
+export default React.memo(Login);
