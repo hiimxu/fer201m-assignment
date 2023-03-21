@@ -12,6 +12,8 @@ import { styled } from '@mui/system';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useDispatch } from 'react-redux';
+import { login } from '~/redux/actions/creators/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled(Box)({
     display: 'flex',
@@ -55,7 +57,7 @@ const Item = styled(Box)({
 });
 
 type LoginDetail = {
-    username: string;
+    email: string;
     password: string;
 };
 
@@ -66,7 +68,17 @@ function Login() {
         formState: { errors },
     } = useForm<LoginDetail>();
 
-    const onSubmit: SubmitHandler<LoginDetail> = (data) => console.log(data);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const onSubmit: SubmitHandler<LoginDetail> = (data) => {
+        const successCallback = () => {
+            // window.location.reload();
+            navigate('/');
+        };
+        //@ts-ignore
+        dispatch(login({ ...data, successCallback }));
+    };
 
     return (
         <Wrapper>
@@ -77,24 +89,23 @@ function Login() {
                 <CardBody onSubmit={handleSubmit(onSubmit)}>
                     <FormControl error fullWidth>
                         <Item>
-                            {' '}
                             <TextField
                                 fullWidth
                                 margin="dense"
                                 variant="standard"
                                 aria-describedby="component-error-text"
-                                label="Username"
-                                error={Boolean(errors?.username)}
-                                {...register('username', {
+                                label="Email"
+                                error={Boolean(errors?.email)}
+                                {...register('email', {
                                     required: true,
-                                    maxLength: 10,
+                                    maxLength: 50,
                                 })}
                             />
                             <FormHelperText id="component-error-text">
-                                {errors.username?.type === 'required' &&
-                                    'Username is required!'}
-                                {errors.username?.type === 'maxLength' &&
-                                    'Username must be less than 10 character!'}
+                                {errors.email?.type === 'required' &&
+                                    'Email is required!'}
+                                {errors.email?.type === 'maxLength' &&
+                                    'Email must be less than 50 character!'}
                             </FormHelperText>
                         </Item>
                         <Item>

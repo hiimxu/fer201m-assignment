@@ -1,31 +1,26 @@
-import * as AuthActionTypes from '~/redux/actions/types/auth';
+import * as AuthActionTypes from '../../types/auth';
 import { Dispatch } from 'redux';
+import * as authenticateService from '~/services/auth';
 
 type LoginDetails = {
-    username: string;
+    email: string;
     password: string;
     successCallback: () => void;
 };
 
 export const login = (loginDetails: LoginDetails) => (dispatch: Dispatch) => {
-    const { username, password, successCallback } = loginDetails;
+    const { email, password, successCallback } = loginDetails;
 
     const submitObj = {
-        username: username,
+        email: email,
         password: password,
     };
 
     dispatch(loginPending());
     const fetchApi = async () => {
-        // const result = await authenticateService.login(submitObj);
-        // if (result?.status === 200) {
-        //     dispatch(loginSuccessfully(result?.data?.accessToken));
-        //     successCallback();
-        // } else {
-        //     dispatch(loginFailed('Wrong username or password. Try again!'));
-        // }
-        if (submitObj) {
-            dispatch(loginSuccessfully(submitObj.username));
+        const result = await authenticateService.login(submitObj);
+        if (result?.status === 200) {
+            dispatch(loginSuccessfully(result?.data?.userData));
             successCallback();
         } else {
             dispatch(loginFailed('Wrong username or password. Try again!'));

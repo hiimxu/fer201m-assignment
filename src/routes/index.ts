@@ -30,4 +30,16 @@ export const publicRoutes = [
     },
 ];
 
-export const privateRoutes = [];
+export const privateRoutes = [
+    {
+        path: config.routes.home,
+        component: Home,
+        layout: DefaultLayout,
+    },
+
+    {
+        path: config.routes.detail,
+        component: Detail,
+        layout: HeaderOnly,
+    },
+];
