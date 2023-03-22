@@ -15,10 +15,11 @@ import {
     TableRow,
     TableCell,
     TableBody,
-    Button
+    Button,
+    IconButton,
 } from '@mui/material'
-import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRounded';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit';
 
 const Wrapper = styled(Box)({
     display: 'flex',
@@ -30,20 +31,32 @@ const Wrapper = styled(Box)({
 const Item = styled(Box)({
     width: '80%',
 })
+const CardHeader = styled(Box)({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
 
+
+})
 const TextSearch = styled(Box)({
     width: '400px',
-    margin: '0 auto'
+    margin: '0 auto',
 })
 
 const BtnAdd = styled(Box)({
-    display: 'flex',
-    justifyContent: 'end',
+    marginRight: '20px',
 
 })
 const TableData = styled(TableContainer)({
     width: '100%',
     marginTop: '30px',
+})
+const THead = styled(TableHead)({
+    backgroundColor: 'rgba(228,110, 30, 0.9)',
+    textTransform: 'uppercase',
+    fontSize: '16px',
+    fontWeight: 'bold',
 })
 const TbCell = styled(TableCell)({
     backgroundColor: 'rgba(0,0, 0, 0.05)',
@@ -74,38 +87,49 @@ export default function ManageMovie() {
         <Wrapper>
             <Item>
                 <h2>List Movies</h2>
-                <TextSearch>
-                    <TextField
-                        fullWidth
-                        label="Search movie by name ..."
-                        variant="outlined"
-                    />
-                </TextSearch>
-                <BtnAdd>
-                    <Button variant="contained" color="success">Add New</Button>
-                </BtnAdd>
+                <CardHeader>
+                    <TextSearch>
+                        <TextField
+                            fullWidth
+                            label="Search movie by name ..."
+                            variant="outlined"
+                        />
+
+                    </TextSearch>
+                    <BtnAdd>
+                        <Button variant="contained" color="primary">Add New</Button>
+                    </BtnAdd>
+                </CardHeader>
+
 
                 <TableData>
                     <Table>
-                        <TableHead>
+                        <THead>
                             <TableRow>
                                 <TbCell>Name</TbCell>
                                 <TbCell >Year</TbCell>
                                 <TbCell >Category Movie</TbCell>
                                 <TbCell >Action</TbCell>
                             </TableRow>
-                        </TableHead>
+                        </THead>
                         <TableBody>
 
                             {
-                                movies?.map((m:any) => (
+                                movies?.map((m: any) => (
                                     <TableRow key={m._id}>
                                         <TbCell >{m.title}</TbCell>
                                         <TbCell >{m.release}</TbCell>
                                         <TbCell >{m.type.name}</TbCell>
                                         <TbCell >
-                                            <ModeEditOutlineRoundedIcon />
-                                            <DeleteRoundedIcon />
+                                            <IconButton aria-label="edit"
+                                                color="primary">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete"
+                                                color="error">
+                                                <DeleteIcon />
+                                            </IconButton>
+
                                         </TbCell>
                                     </TableRow>
                                 ))
