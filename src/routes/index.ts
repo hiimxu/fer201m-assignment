@@ -6,6 +6,8 @@ import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register';
 import Detail from '~/pages/Detail';
+import ManageMovie from '~/pages/ManageMovie';
+import ManageTypeMovie from '~/pages/ManageTypeMovie';
 
 export const publicRoutes = [
     {
@@ -33,6 +35,16 @@ export const publicRoutes = [
         component: Home,
         layout: DefaultLayout,
     },
+    {
+        path: config.routes.manageMovies,
+        component: ManageMovie,
+        layout: null,
+    },
+    {
+        path: config.routes.manageTypeMovie,
+        component: ManageTypeMovie,
+        layout: null,
+    },
 ];
 
 export const customerRoutes = [
@@ -52,4 +64,11 @@ export const customerRoutes = [
         component: Home,
         layout: DefaultLayout,
     },
+    {
+        path: config.routes.manageTypeMovie,
+        component: ManageTypeMovie,
+        layout: null,
+    },
 ];
+
+
