@@ -14,6 +14,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { login } from '~/redux/actions/creators/auth';
 import { useNavigate } from 'react-router-dom';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 const Wrapper = styled(Box)({
     display: 'flex',
@@ -60,16 +62,17 @@ type LoginDetail = {
     email: string;
     password: string;
 };
+// your state type
+type AppDispatch = ThunkDispatch<LoginDetail, any, AnyAction>;
 
 function Login() {
-
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<LoginDetail>();
 
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<LoginDetail> = (data) => {
