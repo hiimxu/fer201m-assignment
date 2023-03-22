@@ -6,16 +6,19 @@ import {
     Button,
     FormHelperText,
     FormControl,
+    Snackbar,
+    Alert,
 } from '@mui/material';
 import { styled } from '@mui/system';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '~/redux/actions/creators/auth';
 import { useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { authSelector } from '~/redux/selectors/authSelector';
 
 const Wrapper = styled(Box)({
     display: 'flex',
@@ -66,11 +69,15 @@ type LoginDetail = {
 type AppDispatch = ThunkDispatch<LoginDetail, any, AnyAction>;
 
 function Login() {
+    const [alert, setAlert] = React.useState<boolean>(false);
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<LoginDetail>();
+
+    const { errMess } = useSelector(authSelector);
 
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
@@ -83,8 +90,39 @@ function Login() {
         dispatch(login({ ...data, successCallback }));
     };
 
+    React.useEffect(() => {
+        if (errMess) {
+            setAlert(true);
+        }
+    }, [errMess]);
+    const handleClose = (
+        event?: React.SyntheticEvent | Event,
+        reason?: string,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlert(false);
+    };
+
     return (
         <Wrapper>
+            <>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={alert}
+                    autoHideDuration={4000}
+                    onClose={handleClose}
+                >
+                    <Alert severity="error" onClose={handleClose}>
+                        {errMess}
+                    </Alert>
+                </Snackbar>
+            </>
             <Card>
                 <CardHeader>
                     <HeaderText>Login</HeaderText>
@@ -99,7 +137,9 @@ function Login() {
                                 variant="standard"
                                 aria-describedby="component-error-text"
                                 label="Email"
-                                error={Boolean(errors?.email)}
+                                error={
+                                    Boolean(errors?.email) || Boolean(errMess)
+                                }
                                 {...register('email', {
                                     required: true,
                                     maxLength: 50,
@@ -120,7 +160,9 @@ function Login() {
                                 margin="dense"
                                 variant="standard"
                                 label="Password"
-                                error={Boolean(errors.password)}
+                                error={
+                                    Boolean(errors.password) || Boolean(errMess)
+                                }
                                 {...register('password', {
                                     required: true,
                                     pattern:

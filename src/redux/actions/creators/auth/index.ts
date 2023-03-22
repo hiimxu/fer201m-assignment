@@ -23,7 +23,7 @@ export const login = (loginDetails: LoginDetails) => (dispatch: Dispatch) => {
             dispatch(loginSuccessfully(result?.data?.userData));
             successCallback();
         } else {
-            dispatch(loginFailed('Wrong username or password. Try again!'));
+            dispatch(loginFailed(result?.data?.message));
         }
     };
     fetchApi();
@@ -36,7 +36,7 @@ const loginSuccessfully = (account: string) => {
     };
 };
 
-const loginFailed = (errMess: string) => {
+const loginFailed = (errMess: any) => {
     return {
         type: AuthActionTypes.LOGIN_FAILED,
         payload: errMess,

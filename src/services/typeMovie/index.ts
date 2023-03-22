@@ -1,16 +1,9 @@
 import { AxiosError } from 'axios';
 import * as request from '~/utils/httpRequest';
 
-type Filter = {
-    search: string;
-    typeMovieId: string;
-};
-
-export const getListMovie = async (filter: Filter) => {
+export const getListTypeMovie = async () => {
     try {
-        const response = await request.get('/movies', {
-            params: filter,
-        });
+        const response = await request.get('/typeMovie');
         return response;
     } catch (error) {
         const err = error as AxiosError;
