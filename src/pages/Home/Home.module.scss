@@ -1,0 +1,35 @@
+.content{
+    width: 100%;
+    height: 1000px;
+    .list-movie{
+        display: flex;
+        width: 100%;
+        gap: 24px;
+        margin-top: 10px;
+        .list-movie-item{
+            width: calc((100%/12)*3);
+            height: max-content;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            .movie-item-img{
+                width: 100%;
+                height: 100%;
+            }
+            .movie-item-detail{
+                width: 100%;
+                padding: 10px 20px;
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 24px;
+                .item-title{
+                    color: rgb(0, 81, 255);
+                }
+                .movie-item-btn{
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}

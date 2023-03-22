@@ -5,6 +5,7 @@ const routes = {
     login: '/login',
     detail: '/detail/:movieId',
     register: '/register',
+    
 };
 
 

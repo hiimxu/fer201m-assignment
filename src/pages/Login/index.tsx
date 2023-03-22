@@ -62,6 +62,7 @@ type LoginDetail = {
 };
 
 function Login() {
+
     const {
         register,
         handleSubmit,
@@ -91,6 +92,7 @@ function Login() {
                         <Item>
                             <TextField
                                 fullWidth
+                                type="email"
                                 margin="dense"
                                 variant="standard"
                                 aria-describedby="component-error-text"
@@ -101,6 +103,7 @@ function Login() {
                                     maxLength: 50,
                                 })}
                             />
+
                             <FormHelperText id="component-error-text">
                                 {errors.email?.type === 'required' &&
                                     'Email is required!'}
