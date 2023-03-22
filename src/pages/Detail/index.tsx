@@ -27,15 +27,16 @@ export default function Detail() {
               <h1>Vua hải tặc</h1>
             </div>
             <div className={cx('type-movie')}>
-              <h5>Thể loại:</h5> <span>Hoạt hình</span>
+              <h5>Movie category:</h5> <span>Hoạt hình</span>
             </div>
             <div className={cx('score-movie')}>
-              <h5>Điểm đánh giá:</h5>
+              <h5>Rate:</h5>
               <Rating name="read-only" value={5} readOnly />
             </div>
 
             <div className={cx('type-movie')}>
-              <h5>Mô tả:</h5>
+              <h5>Description</h5>
+
               <p>The flex items are laid out in a
                 single line which may cause the flex
                 container to overflow. The cross-start is either
@@ -47,10 +48,11 @@ export default function Detail() {
 
 
             <div className={cx('review')}>
-              <h3>Chi tiết đánh giá</h3>
-                <p>Điểm đánh giá:</p>
+              <hr/>
+              <h3>Review details</h3>
+                <p>Rate:</p>
                 <Rating name="read-only" />
-                <p>Bình luận:</p>
+                <p>Comment:</p>
                 <TextField
                   rows={7}
                   multiline
@@ -58,15 +60,13 @@ export default function Detail() {
                   variant="outlined" />
               <div className={cx('btn-comment')}>
                 <Link to='/detail/:movieId'>
-                  <Button variant="contained">Đánh giá</Button>
+                  <Button variant="contained">Comment</Button>
                 </Link>
               </div>
             </div>
-
             <hr />
-
             <div className={cx('comment')}>
-              <h3>Bình luận:</h3>
+              <h3>Comments:</h3>
               <div className={cx('comment-item')}>
                 <h5 className={cx('username')}>Bùi Xuân Linh:</h5>
                 <p className={cx('comment-detail')}>Rất thích bộ phim này</p>
