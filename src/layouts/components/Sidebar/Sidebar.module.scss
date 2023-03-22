@@ -1,0 +1,5 @@
+.wrapper {
+    width: 300px;
+    height: calc(100vh - var(--default-layout-header-height));
+    border-right: 1px solid rgba(22, 24, 35, 0.15);
+}

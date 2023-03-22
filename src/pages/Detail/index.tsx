@@ -2,8 +2,14 @@ import React from 'react'
 import Image from '~/components/Image'
 import styles from './Detail.module.scss'
 import className from 'classnames/bind'
-import { Grid, Rating, Button } from '@mui/material';
-import { Link} from 'react-router-dom';
+import {
+  Grid,
+  Rating,
+  Button,
+  FormControl,
+  TextField
+} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 
 const cx = className.bind(styles);
@@ -16,43 +22,60 @@ export default function Detail() {
           <Image src='' alt='' className={cx('image-detail')} />
         </Grid>
         <Grid item xs={8}>
-          <div className={cx('header-detail')}>
+          <div className={cx('container-detail')}>
             <div className={cx('detail-name')}>
-              <h3>Vua hải tặc</h3>
+              <h1>Vua hải tặc</h1>
             </div>
             <div className={cx('type-movie')}>
-              <span>Thể loại:</span> <span>Hoạt hình</span>
+              <h5>Thể loại:</h5> <span>Hoạt hình</span>
             </div>
             <div className={cx('score-movie')}>
-              <span>Điểm đánh giá:</span>
-              <span> <Rating name="read-only" value={5} readOnly /></span>
+              <h5>Điểm đánh giá:</h5>
+               <Rating name="read-only" value={5} readOnly />
             </div>
 
             <div className={cx('type-movie')}>
-              <span>Mô tả:</span>
-              <p></p>
+              <h5>Mô tả:</h5>
+              <p>The flex items are laid out in a
+                single line which may cause the flex
+                container to overflow. The cross-start is either
+                equivalent to start or before depending on the
+                flex-direction value. This is the default value.
+              </p>
             </div>
 
-            <div className={cx('movie-item-btn')}>
-              <Link to='/detail/:movieId'>
+
+
+            <div className={cx('item-btn-review')}>
+              <h3>Chi tiết đánh giá</h3>
+              <FormControl>
+                <span>Điểm đánh giá:</span>
+               <Rating name="read-only"/>
+                <span>Bình luận:</span>
+                <TextField 
+                rows={7} 
+                fullWidth 
+                variant="outlined" />
+                <Link to='/detail/:movieId'>
                 <Button variant="contained">Đánh giá</Button>
               </Link>
-            </div>
-
-            <div>
+              </FormControl>
               
             </div>
-          </div>
 
-          
-          <hr />
-          <div className={cx('comment')}>
-            <h3>Bình luận:</h3>
-            <div className={cx('comment-item')}>
-                <span className={cx('username')}>Bùi Xuân Linh:</span>
+            <hr />
+
+            <div className={cx('comment')}>
+              <h3>Bình luận:</h3>
+              <div className={cx('comment-item')}>
+                <h5 className={cx('username')}>Bùi Xuân Linh:</h5>
                 <p className={cx('comment-detail')}>Rất thích bộ phim này</p>
+              </div>
             </div>
           </div>
+
+
+
         </Grid>
       </Grid>
     </div>

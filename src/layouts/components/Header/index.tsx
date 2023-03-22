@@ -2,21 +2,41 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { Button, Typography, Stack, TextField, Box } from '@mui/material';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '~/redux/selectors/authSelector';
 import { logout } from '~/redux/actions/creators/auth';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { getListMovie } from '~/redux/actions/creators/movies';
 
 const cx = classNames.bind(styles);
+type AppDispatch = ThunkDispatch<any, any, AnyAction>;
 
 export default function Header() {
+    const [search, setSearch] = React.useState('');
+
     const { account } = useSelector(authSelector);
 
-    const dispatch = useDispatch();
+    const { typeId } = useParams();
+
+    const dispatch: AppDispatch = useDispatch();
 
     const handleLogout = () => {
-        //@ts-ignore
         dispatch(logout());
+    };
+
+    React.useEffect(() => {
+        setSearch('');
+    }, [typeId]);
+
+    const handleSearch = () => {
+        dispatch(
+            getListMovie({
+                search: search,
+                typeMovieId: typeId || '',
+            }),
+        );
     };
 
     return (
@@ -27,18 +47,25 @@ export default function Header() {
                         <Typography variant="h5">Movie</Typography>
                     </Link>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <NavLink to="/">
-                            <Typography>Trang chủ</Typography>
+                        <NavLink
+                            to="/"
+                            className={(nav) => cx({ active: nav.isActive })}
+                        >
+                            <Typography>Home</Typography>
                         </NavLink>
                     </Box>
                 </Stack>
                 <Stack direction="row" spacing={2}>
                     <TextField
                         size="small"
+                        value={search}
                         placeholder="Nhập tên phim cần tìm"
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                        }}
                     />
-                    <Button size="small" variant="outlined">
-                        Tìm
+                    <Button variant="outlined" onClick={() => handleSearch()}>
+                        Search
                     </Button>
 
                     {!account ? (

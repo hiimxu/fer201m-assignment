@@ -28,9 +28,14 @@ export const publicRoutes = [
         component: Detail,
         layout: HeaderOnly,
     },
+    {
+        path: config.routes.typeMovie,
+        component: Home,
+        layout: DefaultLayout,
+    },
 ];
 
-export const privateRoutes = [
+export const customerRoutes = [
     {
         path: config.routes.home,
         component: Home,
@@ -41,5 +46,10 @@ export const privateRoutes = [
         path: config.routes.detail,
         component: Detail,
         layout: HeaderOnly,
+    },
+    {
+        path: config.routes.typeMovie,
+        component: Home,
+        layout: DefaultLayout,
     },
 ];
