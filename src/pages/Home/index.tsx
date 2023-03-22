@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import { getListMovie } from '~/services/movies'
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Rating } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +15,7 @@ export default function Home() {
     useEffect(() => {
         const getAPI = async () => {
             const response = await getListMovie()
-            if (response?.status === 200 && movies) {
+            if (response?.status === 200 ) {
                 setMovie(response.data.data)
             }
             console.log(movies);
@@ -23,40 +23,44 @@ export default function Home() {
         getAPI();
     }, [])
 
+    useEffect(() => {
+        console.log(movies);
+        
+    },[movies])
     return (
         <div className={cx('content')}>
             <div className={cx('list-movie')}>
                 {
-                    // movies && movies.map(m => (
+                    movies?.map((m:any) => (
                         <div className={cx('list-movie-item')}>
                             <Link to='/'>
-                                <Image src='' alt='' className={cx('movie-item-img')} />
+                                <Image src={m.imageurl} alt='' className={cx('movie-item-img')} />
                             </Link>
                             <div className={cx('movie-item-detail')}>
                                 <Link to='/'>
                                     <h3 className={cx('item-title')}>
-                                        Vua hải tặc
+                                       {m.title}
                                     </h3>
                                 </Link>
 
                                 <div className={cx('movie-item-born')}>
-                                    Năm: <span>2012</span>
+                                    Năm: <span>{m.release}</span>
                                 </div>
                                 <div className={cx('movie-item-type')}>
-                                    Thể loại: <span>Hoạt hình</span>
+                                    Thể loại: <span>{m.type.name}</span>
                                 </div>
                                 <div className={cx('movie-item-score')}>
-                                    Điểm: <span>7.65</span>
+                                     <span>Điểm:</span>  <Rating name="read-only" value={m.rate} readOnly />
                                 </div>
                                 <div className={cx('movie-item-btn')}>
                                     <Link to='/'>
-                                        <Button variant="contained">Đánh giá</Button>
+                                      <Button variant="contained">Đánh giá</Button>
                                     </Link>
                                 </div>
                             </div>
 
                         </div>
-                    // ))
+                    ))
                 }
 
 
