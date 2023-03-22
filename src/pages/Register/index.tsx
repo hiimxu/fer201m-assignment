@@ -15,6 +15,7 @@ import { styled } from '@mui/system';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled(Box)({
   display: 'flex',
@@ -162,6 +163,9 @@ function Register() {
                 Register
               </Button>
             </Item>
+            <Item>
+                 <Link to="/login">Login</Link>
+              </Item>
           </FormControl>
         </CardBody>
       </Card>

@@ -15,7 +15,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '~/redux/actions/creators/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { authSelector } from '~/redux/selectors/authSelector';
@@ -181,8 +181,15 @@ function Login() {
                                 Login
                             </Button>
                         </Item>
+                        <Item>
+                          <Link to="/register">Register</Link>
+                        </Item>
                     </FormControl>
+
+                    
+                    
                 </CardBody>
+
             </Card>
         </Wrapper>
     );
