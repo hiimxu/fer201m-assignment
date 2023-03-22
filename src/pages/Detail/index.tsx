@@ -31,7 +31,7 @@ export default function Detail() {
             </div>
             <div className={cx('score-movie')}>
               <h5>Điểm đánh giá:</h5>
-               <Rating name="read-only" value={5} readOnly />
+              <Rating name="read-only" value={5} readOnly />
             </div>
 
             <div className={cx('type-movie')}>
@@ -46,21 +46,21 @@ export default function Detail() {
 
 
 
-            <div className={cx('item-btn-review')}>
+            <div className={cx('review')}>
               <h3>Chi tiết đánh giá</h3>
-              <FormControl>
-                <span>Điểm đánh giá:</span>
-               <Rating name="read-only"/>
-                <span>Bình luận:</span>
-                <TextField 
-                rows={7} 
-                fullWidth 
-                variant="outlined" />
+                <p>Điểm đánh giá:</p>
+                <Rating name="read-only" />
+                <p>Bình luận:</p>
+                <TextField
+                  rows={7}
+                  multiline
+                  fullWidth
+                  variant="outlined" />
+              <div className={cx('btn-comment')}>
                 <Link to='/detail/:movieId'>
-                <Button variant="contained">Đánh giá</Button>
-              </Link>
-              </FormControl>
-              
+                  <Button variant="contained">Đánh giá</Button>
+                </Link>
+              </div>
             </div>
 
             <hr />
@@ -73,9 +73,6 @@ export default function Detail() {
               </div>
             </div>
           </div>
-
-
-
         </Grid>
       </Grid>
     </div>

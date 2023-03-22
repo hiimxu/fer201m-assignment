@@ -52,6 +52,13 @@ export default function Home() {
                             />
                         </Link>
                         <div className={cx('movie-item-detail')}>
+                            <div className={cx('movie-item-score')}>
+                                <Rating
+                                    name="read-only"
+                                    value={m.rate}
+                                    readOnly
+                                />
+                            </div>
                             <Link to="/detail/:movieId">
                                 <h3 className={cx('item-title')}>{m.title}</h3>
                             </Link>
@@ -59,17 +66,11 @@ export default function Home() {
                             <div className={cx('movie-item-born')}>
                                 Năm: <span>{m.release}</span>
                             </div>
+
                             <div className={cx('movie-item-type')}>
                                 Thể loại: <span>{m.type.name}</span>
                             </div>
-                            <div className={cx('movie-item-score')}>
-                                <span>Điểm:</span>{' '}
-                                <Rating
-                                    name="read-only"
-                                    value={m.rate}
-                                    readOnly
-                                />
-                            </div>
+
                             <div className={cx('movie-item-btn')}>
                                 <Link to="/detail/:movieId">
                                     <Button variant="contained">
