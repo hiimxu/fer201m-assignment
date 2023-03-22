@@ -77,7 +77,6 @@ function Login() {
             // window.location.reload();
             navigate('/');
         };
-        //@ts-ignore
         dispatch(login({ ...data, successCallback }));
     };
 
