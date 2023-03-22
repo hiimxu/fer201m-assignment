@@ -33,11 +33,11 @@ export default function Home() {
                 {
                     movies?.map((m:any) => (
                         <div className={cx('list-movie-item')}>
-                            <Link to='/'>
+                            <Link to='/detail/:movieId'>
                                 <Image src={m.imageurl} alt='' className={cx('movie-item-img')} />
                             </Link>
                             <div className={cx('movie-item-detail')}>
-                                <Link to='/'>
+                                <Link to='/detail/:movieId'>
                                     <h3 className={cx('item-title')}>
                                        {m.title}
                                     </h3>
@@ -49,11 +49,11 @@ export default function Home() {
                                 <div className={cx('movie-item-type')}>
                                     Thể loại: <span>{m.type.name}</span>
                                 </div>
-                                <div className={cx('movie-item-score')}>
+                                <div >
                                      <span>Điểm:</span>  <Rating name="read-only" value={m.rate} readOnly />
                                 </div>
                                 <div className={cx('movie-item-btn')}>
-                                    <Link to='/'>
+                                    <Link to='/detail/:movieId'>
                                       <Button variant="contained">Đánh giá</Button>
                                     </Link>
                                 </div>
