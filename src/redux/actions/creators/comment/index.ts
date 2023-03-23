@@ -84,3 +84,39 @@ const addCommentFailed = (message: string) => {
         payload: message,
     };
 };
+
+//GET LIST
+//ADD COMMENT
+export const getListComment = (movieId: string) => (dispatch: Dispatch) => {
+    dispatch(pendingGetListComment());
+    const fetchApi = async () => {
+        const response = await commentService.getListComment(movieId);
+        if (response?.status === 200) {
+            dispatch(getListCommentSuccessful(response?.data?.data));
+        } else {
+            dispatch(getListCommentFailed(response?.data?.message));
+        }
+    };
+    fetchApi();
+};
+
+const pendingGetListComment = () => {
+    return {
+        type: CommentActionTypes.PENDING_GET_LIST_COMMENT,
+        payload: null,
+    };
+};
+
+const getListCommentSuccessful = (data: any) => {
+    return {
+        type: CommentActionTypes.GET_LIST_COMMENT_SUCCESSFULLY,
+        payload: data,
+    };
+};
+
+const getListCommentFailed = (message: string) => {
+    return {
+        type: CommentActionTypes.GET_LIST_COMMENT_FAILED,
+        payload: message,
+    };
+};

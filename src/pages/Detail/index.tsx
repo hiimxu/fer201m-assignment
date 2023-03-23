@@ -3,17 +3,21 @@ import Image from '~/components/Image';
 import styles from './Detail.module.scss';
 import className from 'classnames/bind';
 import { Grid, Rating, Button, TextField } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { movieInformationSelector } from '~/redux/selectors/movieSelector';
 import { getMovieInfo } from '~/redux/actions/creators/movies';
-import { getCommentUserSelector } from '~/redux/selectors/commentSelector';
+import {
+    getCommentUserSelector,
+    getListCommentSelector,
+} from '~/redux/selectors/commentSelector';
 import { authSelector } from '~/redux/selectors/authSelector';
 import {
     getCommentCurrentUser,
     addComment,
+    getListComment,
 } from '~/redux/actions/creators/comment';
 import SuccessDialog from '~/components/Dialog/SuccessDialog';
 
@@ -25,18 +29,21 @@ export default function Detail() {
     const { data } = useSelector(movieInformationSelector);
     const { loading, data: userComment } = useSelector(getCommentUserSelector);
     const { account } = useSelector(authSelector);
+    const { data: listComment } = useSelector(getListCommentSelector);
 
     const [myComment, setMyComment] = React.useState<any>(userComment);
 
     const [open, setOpen] = React.useState<boolean>(false);
 
     const { movieId } = useParams();
+    const navigate = useNavigate();
 
     const dispatch: AppDispatch = useDispatch();
 
     React.useEffect(() => {
         if (movieId) {
             dispatch(getMovieInfo(movieId));
+            dispatch(getListComment(movieId));
         }
     }, [movieId, dispatch]);
 
@@ -56,26 +63,33 @@ export default function Detail() {
     }, [userComment]);
 
     const handleSubmit = () => {
-        const successCallback = () => {
-            setOpen(true);
-            if (movieId && account) {
-                dispatch(
-                    getCommentCurrentUser({
-                        movieId: movieId,
-                        userId: account._id,
-                    }),
-                );
-            }
-        };
-        if (myComment) {
-            const { userid, rate, comment, movieid } = myComment;
-            const submitObj = {
-                userId: userid,
-                rate: rate,
-                comment: comment,
-                movieId: movieId,
+        if (account) {
+            const successCallback = () => {
+                setOpen(true);
+                if (movieId && account) {
+                    dispatch(
+                        getCommentCurrentUser({
+                            movieId: movieId,
+                            userId: account._id,
+                        }),
+                    );
+                }
+                if (movieId) {
+                    dispatch(getListComment(movieId));
+                }
             };
-            dispatch(addComment({ ...submitObj }, successCallback));
+            if (myComment) {
+                const { userid, rate, comment, movieid } = myComment;
+                const submitObj = {
+                    userId: userid,
+                    rate: rate,
+                    comment: comment,
+                    movieId: movieId,
+                };
+                dispatch(addComment({ ...submitObj }, successCallback));
+            }
+        } else {
+            navigate('/login');
         }
     };
 
@@ -103,7 +117,8 @@ export default function Detail() {
                             <h1>{data?.title}</h1>
                         </div>
                         <div className={cx('type-movie')}>
-                            <h5>Category movie:</h5> <span>{data?.type?.name}</span>
+                            <h5>Category movie:</h5>{' '}
+                            <span>{data?.type?.name}</span>
                         </div>
                         <div className={cx('score-movie')}>
                             <h5>Rate:</h5>
@@ -120,7 +135,7 @@ export default function Detail() {
                         </div>
                         {loading ? (
                             <div>Loading...</div>
-                        ) : (
+                        ) : account ? (
                             <div className={cx('review')}>
                                 <h3>Review detail</h3>
                                 <p>Rate:</p>
@@ -159,20 +174,38 @@ export default function Detail() {
                                     </Button>
                                 </div>
                             </div>
+                        ) : (
+                            <>
+                                <div className={cx('btn-comment')}>
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => handleSubmit()}
+                                    >
+                                        Đánh giá
+                                    </Button>
+                                </div>
+                            </>
                         )}
 
                         <hr />
 
                         <div className={cx('comment')}>
-                            <h3>Comments:</h3>
-                            <div className={cx('comment-item')}>
-                                <h5 className={cx('username')}>
-                                    Bùi Xuân Linh:
-                                </h5>
-                                <p className={cx('comment-detail')}>
-                                    Rất thích bộ phim này
-                                </p>
-                            </div>
+                            <h3>Bình luận:</h3>
+                            {listComment?.map((item: any) => (
+                                <div className={cx('comment-item')}>
+                                    <h4 className={cx('username')}>
+                                        {item.user}:{' '}
+                                        <span
+                                            style={{
+                                                fontWeight: 400,
+                                            }}
+                                            className={cx('comment-detail')}
+                                        >
+                                            {item.comment}
+                                        </span>
+                                    </h4>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </Grid>

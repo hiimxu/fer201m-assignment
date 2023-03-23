@@ -35,16 +35,6 @@ export const publicRoutes = [
         component: Home,
         layout: DefaultLayout,
     },
-    {
-        path: config.routes.manageMovies,
-        component: ManageMovie,
-        layout: null,
-    },
-    {
-        path: config.routes.manageTypeMovie,
-        component: ManageTypeMovie,
-        layout: null,
-    },
 ];
 
 export const customerRoutes = [
@@ -59,10 +49,13 @@ export const customerRoutes = [
         component: Detail,
         layout: HeaderOnly,
     },
+];
+
+export const adminRoutes = [
     {
-        path: config.routes.typeMovie,
-        component: Home,
-        layout: DefaultLayout,
+        path: config.routes.home,
+        component: ManageMovie,
+        layout: null,
     },
     {
         path: config.routes.manageTypeMovie,
@@ -70,5 +63,3 @@ export const customerRoutes = [
         layout: null,
     },
 ];
-
-

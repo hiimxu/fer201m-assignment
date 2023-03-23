@@ -6,7 +6,7 @@ import {
     Route,
     Navigate,
 } from 'react-router-dom';
-import { publicRoutes, customerRoutes } from '~/routes';
+import { publicRoutes, customerRoutes, adminRoutes } from '~/routes';
 import { DefaultLayout } from './layouts';
 import { authSelector } from './redux/selectors/authSelector';
 
@@ -18,6 +18,39 @@ function App() {
                 <React.Fragment>
                     <Routes>
                         {customerRoutes.map((route, index) => {
+                            const Page = route.component;
+
+                            let Layout: any = DefaultLayout;
+
+                            if (route.layout) {
+                                Layout = route.layout;
+                            } else if (route.layout === null) {
+                                Layout = React.Fragment;
+                            }
+
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    }
+                                />
+                            );
+                        })}
+                        <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                </React.Fragment>
+            </Router>
+        );
+    } else if (account && account.roll === 'ADMIN') {
+        return (
+            <Router>
+                <React.Fragment>
+                    <Routes>
+                        {adminRoutes.map((route, index) => {
                             const Page = route.component;
 
                             let Layout: any = DefaultLayout;

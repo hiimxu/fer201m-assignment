@@ -1,12 +1,20 @@
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import {
+    applyMiddleware,
+    combineReducers,
+    legacy_createStore as createStore,
+} from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { LoginAccount } from '~/redux/reducers/auth';
 import { TypeMovie } from '~/redux/reducers/typeMovie';
 import { ListMovie, MovieInformation } from '~/redux/reducers/movie';
-import { GetCommentUser, AddComment } from '~/redux/reducers/comment';
+import {
+    GetCommentUser,
+    AddComment,
+    GetListComment,
+} from '~/redux/reducers/comment';
 
 const loginConfig = {
     key: 'loginAccount',
@@ -23,6 +31,7 @@ const rootReducer = combineReducers({
     movieInformation: MovieInformation,
     getCommentUser: GetCommentUser,
     addComment: AddComment,
+    getListComment: GetListComment,
 });
 
 export const ConfigureStore = () => {

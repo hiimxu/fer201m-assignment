@@ -54,3 +54,30 @@ export const AddComment = (
             return state;
     }
 };
+
+export const GetListComment = (
+    state = { loading: false, data: null, errMess: null },
+    action: ActionType,
+) => {
+    switch (action.type) {
+        case CommentActionTypes.PENDING_GET_LIST_COMMENT:
+            return { ...state, loading: true, data: null, errMess: null };
+        case CommentActionTypes.GET_LIST_COMMENT_FAILED:
+            return {
+                ...state,
+                loading: false,
+                data: null,
+                errMess: action.payload,
+            };
+        case CommentActionTypes.GET_LIST_COMMENT_SUCCESSFULLY:
+            return {
+                ...state,
+                loading: false,
+                data: action.payload,
+                errMess: null,
+            };
+
+        default:
+            return state;
+    }
+};
