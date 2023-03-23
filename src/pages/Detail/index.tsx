@@ -103,10 +103,10 @@ export default function Detail() {
                             <h1>{data?.title}</h1>
                         </div>
                         <div className={cx('type-movie')}>
-                            <h5>Thể loại:</h5> <span>{data?.type?.name}</span>
+                            <h5>Category movie:</h5> <span>{data?.type?.name}</span>
                         </div>
                         <div className={cx('score-movie')}>
-                            <h5>Điểm đánh giá:</h5>
+                            <h5>Rate:</h5>
                             <Rating
                                 name="read-only"
                                 value={data?.rate}
@@ -115,15 +115,15 @@ export default function Detail() {
                         </div>
 
                         <div className={cx('type-movie')}>
-                            <h5>Mô tả:</h5>
+                            <h5>Description:</h5>
                             <p>{data?.description}</p>
                         </div>
                         {loading ? (
                             <div>Loading...</div>
                         ) : (
                             <div className={cx('review')}>
-                                <h3>Chi tiết đánh giá</h3>
-                                <p>Điểm đánh giá:</p>
+                                <h3>Review detail</h3>
+                                <p>Rate:</p>
                                 {myComment?.rate !== undefined && (
                                     <Rating
                                         value={myComment?.rate}
@@ -136,7 +136,7 @@ export default function Detail() {
                                     />
                                 )}
 
-                                <p>Bình luận:</p>
+                                <p>Comment:</p>
                                 <TextField
                                     rows={7}
                                     multiline
@@ -155,7 +155,7 @@ export default function Detail() {
                                         variant="contained"
                                         onClick={() => handleSubmit()}
                                     >
-                                        Đánh giá
+                                        Comment
                                     </Button>
                                 </div>
                             </div>
@@ -164,7 +164,7 @@ export default function Detail() {
                         <hr />
 
                         <div className={cx('comment')}>
-                            <h3>Bình luận:</h3>
+                            <h3>Comments:</h3>
                             <div className={cx('comment-item')}>
                                 <h5 className={cx('username')}>
                                     Bùi Xuân Linh:
