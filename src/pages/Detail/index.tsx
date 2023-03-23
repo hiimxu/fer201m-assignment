@@ -81,7 +81,7 @@ export default function Detail() {
             if (myComment) {
                 const { userid, rate, comment, movieid } = myComment;
                 const submitObj = {
-                    userId: userid,
+                    userId: account._id,
                     rate: rate,
                     comment: comment,
                     movieId: movieId,
@@ -139,9 +139,19 @@ export default function Detail() {
                             <div className={cx('review')}>
                                 <h3>Review detail</h3>
                                 <p>Rate:</p>
-                                {myComment?.rate !== undefined && (
+                                {myComment?.rate !== undefined ? (
                                     <Rating
                                         value={myComment?.rate}
+                                        onChange={(event, newValue) => {
+                                            setMyComment((prev: any) => ({
+                                                ...prev,
+                                                rate: newValue,
+                                            }));
+                                        }}
+                                    />
+                                ) : (
+                                    <Rating
+                                        value={myComment?.rate || 0}
                                         onChange={(event, newValue) => {
                                             setMyComment((prev: any) => ({
                                                 ...prev,

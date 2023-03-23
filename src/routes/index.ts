@@ -30,6 +30,11 @@ export const publicRoutes = [
         component: Detail,
         layout: HeaderOnly,
     },
+    {
+        path: config.routes.typeMovie,
+        component: Home,
+        layout: DefaultLayout,
+    },
 ];
 
 export const customerRoutes = [
