@@ -17,3 +17,13 @@ export const getListMovie = async (filter: Filter) => {
         return err.response;
     }
 };
+
+export const getMovieDetail = async (id: string) => {
+    try {
+        const response = await request.get(`/movies/${id}`);
+        return response;
+    } catch (error) {
+        const err = error as AxiosError;
+        return err.response;
+    }
+};

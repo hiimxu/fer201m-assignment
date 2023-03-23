@@ -5,7 +5,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { LoginAccount } from '~/redux/reducers/auth';
 import { TypeMovie } from '~/redux/reducers/typeMovie';
-import { ListMovie } from '~/redux/reducers/movie';
+import { ListMovie, MovieInformation } from '~/redux/reducers/movie';
+import { GetCommentUser, AddComment } from '~/redux/reducers/comment';
 
 const loginConfig = {
     key: 'loginAccount',
@@ -19,6 +20,9 @@ const rootReducer = combineReducers({
 
     typeMovie: TypeMovie,
     listMovie: ListMovie,
+    movieInformation: MovieInformation,
+    getCommentUser: GetCommentUser,
+    addComment: AddComment,
 });
 
 export const ConfigureStore = () => {

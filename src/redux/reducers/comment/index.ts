@@ -1,21 +1,21 @@
-import * as MovieActionTypes from '~/redux/actions/types/movie';
+import * as CommentActionTypes from '~/redux/actions/types/comment';
 import { ActionType } from '~/models/reduxModels';
 
-export const ListMovie = (
+export const GetCommentUser = (
     state = { loading: false, data: null, errMess: null },
     action: ActionType,
 ) => {
     switch (action.type) {
-        case MovieActionTypes.PENDING_GET_LIST_MOVIE:
+        case CommentActionTypes.PENDING_GET_COMMENT_CURRENT_USER:
             return { ...state, loading: true, data: null, errMess: null };
-        case MovieActionTypes.GET_LIST_MOVIE_FAILED:
+        case CommentActionTypes.GET_COMMENT_CURRENT_USER_FAILED:
             return {
                 ...state,
                 loading: false,
                 data: null,
                 errMess: action.payload,
             };
-        case MovieActionTypes.GET_LIST_MOVIE_SUCCESSFULLY:
+        case CommentActionTypes.GET_COMMENT_CURRENT_USER_SUCCESSFULLY:
             return {
                 ...state,
                 loading: false,
@@ -28,21 +28,21 @@ export const ListMovie = (
     }
 };
 
-export const MovieInformation = (
+export const AddComment = (
     state = { loading: false, data: null, errMess: null },
     action: ActionType,
 ) => {
     switch (action.type) {
-        case MovieActionTypes.PENDING_GET_MOVIE_BY_ID:
+        case CommentActionTypes.PENDING_ADD_COMMENT:
             return { ...state, loading: true, data: null, errMess: null };
-        case MovieActionTypes.GET_MOVIE_BY_ID_FAILED:
+        case CommentActionTypes.ADD_COMMENT_FAILED:
             return {
                 ...state,
                 loading: false,
                 data: null,
                 errMess: action.payload,
             };
-        case MovieActionTypes.GET_MOVIE_BY_ID_SUCCESSFULLY:
+        case CommentActionTypes.ADD_COMMENT_SUCCESSFULLY:
             return {
                 ...state,
                 loading: false,

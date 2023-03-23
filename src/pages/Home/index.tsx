@@ -44,13 +44,12 @@ export default function Home() {
             <div className={cx('list-movie')}>
                 {movies?.map((m: any) => (
                     <div className={cx('list-movie-item')}>
-                        <Link to="/detail/:movieId">
-                            <Image
-                                src={m.imageurl}
-                                alt=""
-                                className={cx('movie-item-img')}
-                            />
-                        </Link>
+                        <Image
+                            src={m.imageurl}
+                            alt=""
+                            className={cx('movie-item-img')}
+                        />
+
                         <div className={cx('movie-item-detail')}>
                             <div className={cx('movie-item-score')}>
                                 <Rating
@@ -59,9 +58,8 @@ export default function Home() {
                                     readOnly
                                 />
                             </div>
-                            <Link to="/detail/:movieId">
-                                <h3 className={cx('item-title')}>{m.title}</h3>
-                            </Link>
+
+                            <h3 className={cx('item-title')}>{m.title}</h3>
 
                             <div className={cx('movie-item-born')}>
                                 Năm: <span>{m.release}</span>
@@ -72,9 +70,9 @@ export default function Home() {
                             </div>
 
                             <div className={cx('movie-item-btn')}>
-                                <Link to="/detail/:movieId">
+                                <Link to={`/detail/${m._id}`}>
                                     <Button variant="contained">
-                                        Đánh giá
+                                        Go Detail
                                     </Button>
                                 </Link>
                             </div>
